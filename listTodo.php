@@ -26,8 +26,8 @@
 <div class="container mt-3">
     <?php
     if (isset($_SESSION['users']) && !empty($_SESSION['users'])) {
-        foreach ($_SESSION['users'] as $user) {
-            echo '<div class="card">
+        foreach ($_SESSION['users'] as $index => $user) {
+            echo '<div class="card mt-3">
                     <div class="card-header">'
                         . $user['name'] . 
                     '</div>
@@ -40,7 +40,7 @@
 
                         <div class="d-flex justify-content-center mt-3">
                             <a class="btn btn-sm btn-dark mx-2">Edit</a>
-                            <a class="btn btn-sm btn-dark mx-2">Remove</a>
+                            <a href="removeTodo.php?delete=' . $index . '" class="btn btn-sm btn-dark mx-2">Remove</a>
                         </div>
                     </div>
                 </div>';
