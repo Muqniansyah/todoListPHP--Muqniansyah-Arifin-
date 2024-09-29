@@ -26,32 +26,46 @@
 
 <div class="container mt-4">
     <div class="card">
+        <?php
+            // Cek apakah kita sedang mengedit data
+            $edit_mode = false;
+            $edit_id = -1;
+            
+            if (isset($_GET['edit'])) {
+                $edit_id = $_GET['edit'];
+                $edit_mode = true;
+                $user = $_SESSION['users'][$edit_id];
+            }
+        ?>
+
         <div class="card-body">
             <form method="POST" action="register.php">
+                <input type="hidden" name="edit_id" value="<?= $edit_mode ? $edit_id : -1; ?>"> <!-- menambahkan input tersembunyi untuk mengirimkan data melalui form tanpa menampilkannya di halaman web-->
+                
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name" required>
+                    <input type="text" class="form-control" name="name" value="<?= $edit_mode ? $user['name'] : '' ?>" required> <!--tambahkan nilai value untuk mode edit -->
                 </div>
 
                 <div class="mb-3">
                     <label for="pesan" class="form-label">Masukkan hal yang akan dilakukan</label>
-                    <input type="text" class="form-control" name="pesan" required>
+                    <input type="text" class="form-control" name="pesan" value="<?= $edit_mode ? $user['pesan'] : '' ?>" required> <!--tambahkan nilai value untuk mode edit -->
                 </div>
                 
                 <div class="mb-3">
                     <label for="date" class="form-label">Masukkan tanggal harus selesai</label><br>
-                    <input type="date" id="date" name="date" class="form-control" required>
+                    <input type="date" id="date" name="date" class="form-control" value="<?= $edit_mode ? $user['date'] : '' ?>" required> <!--tambahkan nilai value untuk mode edit -->
                 </div>
                         
                 <div class="mb-3">
                     <label for="name" class="form-label">Category</label>
                     <select name="category" id="category" class="form-select">
-                        <option value="default">default</option>
-                        <option value="priority">Priority</option>
+                        <option value="default" <?= $edit_mode && $user['category'] == 'default' ? 'selected' : '';?>>default</option> <!--tambahkan nilai value untuk mode edit -->
+                        <option value="priority <?= $edit_mode && $user['category'] == 'priority' ? 'selected' : '';?>">Priority</option> <!--tambahkan nilai value untuk mode edit -->
                     </select>
                 </div>
                 
-                <button type="submit" class="btn btn-secondary w-100 mt-2">buat</button>
+                <button type="submit" class="btn btn-secondary w-100 mt-2"><?= $edit_mode ? 'Update Todolist' : 'Add Todolist'; ?></button>
             </form>
         </div>
     </div>
