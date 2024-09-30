@@ -25,6 +25,20 @@
 <h1 class="card-header py-3 text-center text-secondary border-bottom">Todo List</h1>
 
 <div class="container mt-4">
+    <!-- show message success or failed -->
+    <?php if (isset($_SESSION['message'])) : ?> 
+                <div class="alert alert-<?= $_SESSION['type']; ?> alert-dismissible fade show" role="alert">
+                <?= $_SESSION['message']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                
+                <?php
+                    unset($_SESSION['message']);
+                    unset($_SESSION['type']);
+                ?>
+                
+    <?php endif; ?>
+
     <div class="card">
         <?php
             // Cek apakah kita sedang mengedit data
@@ -65,7 +79,7 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="btn btn-secondary w-100 mt-2"><?= $edit_mode ? 'Update Todolist' : 'Add Todolist'; ?></button>
+                <button type="submit" class="btn btn-dark w-100 mt-2"><?= $edit_mode ? 'Update Todolist' : 'Add Todolist'; ?></button>
             </form>
         </div>
     </div>

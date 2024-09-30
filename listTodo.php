@@ -27,6 +27,20 @@
 <body>
 <h1 class="card-header py-3 text-center text-secondary border-bottom">Data Todo</h1>
 <div class="container mt-3">
+    <!-- show message success or failed -->
+    <?php if (isset($_SESSION['message'])) : ?> 
+                <div class="alert alert-<?= $_SESSION['type']; ?> alert-dismissible fade show" role="alert">
+                <?= $_SESSION['message']; ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                
+                <?php
+                    unset($_SESSION['message']);
+                    unset($_SESSION['type']);
+                ?>
+                
+    <?php endif; ?>
+
     <?php
     if (isset($_SESSION['users']) && !empty($_SESSION['users'])) {
         foreach ($_SESSION['users'] as $index => $user) {
